@@ -17,7 +17,7 @@ namespace Ecs {
       int const _line;
 
     public:
-      Base(std::string const& str, std::string const& type = "", std::string const& file = __FILE__, std::string const& function = __PRETTY_FUNCTION__, int line = __LINE__);
+      Base(std::string const& str, std::string const& type, std::string const& file, std::string const& function, int line);
       ~Base() throw();
       const char *what() const throw();
     };
