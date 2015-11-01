@@ -8,12 +8,12 @@
 namespace Ecs {
   class Entity {
   private:
-    std::vector<Ecs::Component::Base> _components;
-    Ecs::ComponentMask _componentMask;
+    std::vector<Ecs::Component::Base*> _components;
 
   public:
     Entity();
-    template<typename T> T& getComponent();
+    ~Entity();
+    template<typename T> T* getComponent();
     template<typename T> bool hasComponent() const;
     template<typename T> void removeComponent();
     template<typename T, typename ... U> void addComponent(U && ... args);
@@ -21,28 +21,29 @@ namespace Ecs {
 }
 
 template<typename T>
-T& Ecs::Entity::getComponent() {
+T* Ecs::Entity::getComponent() {
   if (hasComponent<T>() == false)
     __throw(Ecs::Exception::Entity, "Component not found");
-  return _components[Ecs::Component::Template<T>::getId()];
+  return static_cast<T *>(_components[Ecs::Component::Template<T>::getId()]);
 }
 
 template<typename T>
 bool Ecs::Entity::hasComponent() const {
-  return _componentMask[Ecs::Component::Template<T>::getId()];
+  return _components[Ecs::Component::Template<T>::getId()] != 0;
 }
 
 template<typename T>
 void Ecs::Entity::removeComponent() {
   if (hasComponent<T>() == false)
     __throw(Ecs::Exception::Entity, "Component not found");
-  _componentMask[Ecs::Component::Template<T>::getId()] = false;
+  delete _components[Ecs::Component::Template<T>::getId()];
+  _components[Ecs::Component::Template<T>::getId()] = 0;
 }
 
 template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
-  int id = Ecs::Component::Template<T>::getId();
-  T comp(std::forward<U>(args) ...);
-  _componentMask[id] = true;
-  _components[id] = comp;
+  if (hasComponent<T>() == true)
+    __throw(Ecs::Exception::Entity, "Component already exists");
+  T* comp = new T(std::forward<U>(args) ...);
+  _components[Ecs::Component::Template<T>::getId()] = comp;
 }

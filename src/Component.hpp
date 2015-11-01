@@ -26,6 +26,4 @@ namespace Ecs {
       };
     };
   }
-
-  typedef std::bitset<Ecs::MAX_COMPONENTS> ComponentMask;
 }
