@@ -41,7 +41,8 @@ void Ecs::Entity::removeComponent() {
 
 template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
+  int id = Ecs::Component::Template<T>::getId();
   T comp(std::forward<U>(args) ...);
-  _componentMask[comp.getId()] = true;
-  _components[comp.getId()] = comp;
+  _componentMask[id] = true;
+  _components[id] = comp;
 }
