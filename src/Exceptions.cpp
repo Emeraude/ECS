@@ -13,3 +13,6 @@ const char *Ecs::Exception::Base::what() const throw() {
 
 Ecs::Exception::Component::Component(std::string const& str, std::string const& file, std::string const& function, int line) :
   Ecs::Exception::Base(str, "Component", file, function, line) {}
+
+Ecs::Exception::Entity::Entity(std::string const& str, std::string const& file, std::string const& function, int line) :
+  Ecs::Exception::Base(str, "Entity", file, function, line) {}

@@ -26,5 +26,10 @@ namespace Ecs {
     public:
       Component(std::string const &str, std::string const& file, std::string const& function, int line);
     };
+
+    class Entity : public Ecs::Exception::Base {
+    public:
+      Entity(std::string const &str, std::string const& file, std::string const& function, int line);
+    };
   }
 }

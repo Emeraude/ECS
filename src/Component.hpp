@@ -4,10 +4,10 @@
 
 namespace Ecs {
 
-#ifndef __MAX_COMPONENTS
-  static const int MAX_COMPONENTS = 256;
-#else
+#ifdef __MAX_COMPONENTS
   static const int MAX_COMPONENTS = __MAX_COMPONENTS;
+#else
+  static const int MAX_COMPONENTS = 256;
 #endif
 
   class BaseComponent {
@@ -19,5 +19,5 @@ namespace Ecs {
     int getId() const;
   };
 
-  using ComponentMask = std::bitset<Ecs::MAX_COMPONENTS>;
+  typedef std::bitset<Ecs::MAX_COMPONENTS> ComponentMask;
 }
