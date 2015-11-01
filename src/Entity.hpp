@@ -8,11 +8,12 @@
 namespace Ecs {
   class Entity {
   private:
-    std::vector<Ecs::BaseComponent> _components[Ecs::MAX_COMPONENTS];
+    std::vector<Ecs::Component::Base> _components;
     Ecs::ComponentMask _componentMask;
 
   public:
-    template<typename T> T& getComponent() const;
+    Entity();
+    template<typename T> T& getComponent();
     template<typename T> bool hasComponent() const;
     template<typename T> void removeComponent();
     template<typename T, typename ... U> void addComponent(U && ... args);
@@ -20,27 +21,27 @@ namespace Ecs {
 }
 
 template<typename T>
-T& Ecs::Entity::getComponent() const {
+T& Ecs::Entity::getComponent() {
   if (hasComponent<T>() == false)
     __throw(Ecs::Exception::Entity, "Component not found");
-  return _components[T::getId()];
+  return _components[Ecs::Component::Template<T>::getId()];
 }
 
 template<typename T>
 bool Ecs::Entity::hasComponent() const {
-  return _componentMask[T::getId()];
+  return _componentMask[Ecs::Component::Template<T>::getId()];
 }
 
 template<typename T>
 void Ecs::Entity::removeComponent() {
   if (hasComponent<T>() == false)
     __throw(Ecs::Exception::Entity, "Component not found");
-  _componentMask[T::getId()] = false;
+  _componentMask[Ecs::Component::Template<T>::getId()] = false;
 }
 
 template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
-  T component(std::forward<U>(args) ...);
-  _componentMask[component.getId()] = true;
-  _components[component.getId()] = component;
+  T comp(std::forward<U>(args) ...);
+  _componentMask[comp.getId()] = true;
+  _components[comp.getId()] = comp;
 }

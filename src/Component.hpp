@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bitset>
+#include "Exceptions.hpp"
 
 namespace Ecs {
 
@@ -10,14 +11,21 @@ namespace Ecs {
   static const int MAX_COMPONENTS = 256;
 #endif
 
-  class BaseComponent {
-  private:
-    int _id;
+  namespace Component {
+    class Base {};
+    static int _idCount = 0;
 
-  public:
-    BaseComponent();
-    int getId() const;
-  };
+    template<typename T>
+    class Template : public Base {
+    public:
+      static int getId() {
+	static int id = Ecs::Component::_idCount++;
+	if (_idCount >= Ecs::MAX_COMPONENTS)
+	  __throw(Ecs::Exception::Component, "Too many components");
+	return id;
+      };
+    };
+  }
 
   typedef std::bitset<Ecs::MAX_COMPONENTS> ComponentMask;
 }
