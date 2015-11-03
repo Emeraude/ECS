@@ -13,14 +13,14 @@ namespace Ecs {
 
   public:
     ~World();
-    template<typename T, typename ... U> void addSystem(U && ... args);
+    template<typename T, typename ... U> void addSystem(float ms, U && ... args);
     template<typename T> bool hasSystem();
     template<typename T> void removeSystem();
   };
 }
 
 template<typename T, typename ... U>
-void Ecs::World::addSystem(U && ... args) {
+void Ecs::World::addSystem(float ms, U && ... args) {
   if (hasSystem<T>() == true)
     __throw(Ecs::Exception::World, "System already exists");
 
@@ -28,6 +28,7 @@ void Ecs::World::addSystem(U && ... args) {
   if (id >= _systems.capacity())
     _systems.resize(id + 1);
   _systems[id] = new T(std::forward<U>(args) ...);
+  _systems[id]->setMs(ms);
 }
 
 template<typename T>

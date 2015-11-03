@@ -3,9 +3,15 @@
 namespace Ecs {
   namespace System {
     class Base {
+    private:
+      int _ms;
+
     public:
       virtual ~Base() {}
       virtual void update() = 0;
+
+      void setMs(int);
+      int getMs(void) const;
     };
     static int _idCount = 0;
 
