@@ -1,6 +1,5 @@
 #pragma once
 
-#include <bitset>
 #include "Exceptions.hpp"
 
 namespace Ecs {
