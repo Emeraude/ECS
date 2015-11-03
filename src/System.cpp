@@ -1,9 +1,9 @@
 #include "System.hpp"
 
-void Ecs::System::Base::setMs(int ms) {
+void Ecs::System::Base::setMs(float ms) {
   _ms = ms;
 }
 
-int Ecs::System::Base::getMs(void) const {
+float Ecs::System::Base::getMs() const {
   return _ms;
 }

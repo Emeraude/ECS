@@ -4,14 +4,14 @@ namespace Ecs {
   namespace System {
     class Base {
     private:
-      int _ms;
+      float _ms;
 
     public:
       virtual ~Base() {}
       virtual void update() = 0;
 
-      void setMs(int);
-      int getMs(void) const;
+      void setMs(float);
+      float getMs() const;
     };
     static int _idCount = 0;
 
