@@ -22,6 +22,7 @@ namespace Ecs {
     template<typename T> void removeSystem();
 
     void run();
+    void stop();
   };
 }
 

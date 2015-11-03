@@ -1,6 +1,6 @@
 #include "World.hpp"
 
-Ecs::World::World() : _stopped(false) {}
+Ecs::World::World() : _stopped(true) {}
 
 Ecs::World::~World() {
   for (auto& it: _systems)
@@ -8,6 +8,7 @@ Ecs::World::~World() {
 }
 
 void Ecs::World::run() {
+  _stopped = false;
   std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
   while (_stopped == false) {
     auto diff = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - startTime).count();
@@ -19,4 +20,8 @@ void Ecs::World::run() {
     }
     std::this_thread::sleep_for(std::chrono::microseconds(100));
   }
+}
+
+void Ecs::World::stop() {
+  _stopped = true;
 }
