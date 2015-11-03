@@ -12,6 +12,7 @@ namespace Ecs {
     std::vector<Ecs::System::Base *> _systems;
 
   public:
+    ~World();
     template<typename T, typename ... U> void addSystem(U && ... args);
     template<typename T> bool hasSystem();
     template<typename T> void removeSystem();
@@ -20,10 +21,10 @@ namespace Ecs {
 
 template<typename T, typename ... U>
 void Ecs::World::addSystem(U && ... args) {
-  unsigned int id = Ecs::System::Template<T>::getId();
-
   if (hasSystem<T>() == true)
     __throw(Ecs::Exception::World, "System already exists");
+
+  unsigned int id = Ecs::System::Template<T>::getId();
   if (id >= _systems.capacity())
     _systems.resize(id + 1);
   _systems[id] = new T(std::forward<U>(args) ...);

@@ -11,7 +11,6 @@ namespace Ecs {
     std::vector<Ecs::Component::Base*> _components;
 
   public:
-    Entity();
     ~Entity();
     template<typename T> T* getComponent();
     template<typename T> bool hasComponent() const;
@@ -29,7 +28,8 @@ T* Ecs::Entity::getComponent() {
 
 template<typename T>
 bool Ecs::Entity::hasComponent() const {
-  return _components[Ecs::Component::Template<T>::getId()] != 0;
+  unsigned int id = Ecs::Component::Template<T>::getId();
+  return id < _components.capacity() && _components[id];
 }
 
 template<typename T>
@@ -44,6 +44,9 @@ template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
   if (hasComponent<T>() == true)
     __throw(Ecs::Exception::Entity, "Component already exists");
-  T* comp = new T(std::forward<U>(args) ...);
-  _components[Ecs::Component::Template<T>::getId()] = comp;
+
+  unsigned int id = Ecs::Component::Template<T>::getId();
+  if (id >= _components.capacity())
+    _components.resize(id + 1);
+  _components[Ecs::Component::Template<T>::getId()] = new T(std::forward<U>(args) ...);
 }
