@@ -16,3 +16,6 @@ Ecs::Exception::Component::Component(std::string const& str, std::string const& 
 
 Ecs::Exception::Entity::Entity(std::string const& str, std::string const& file, std::string const& function, int line) :
   Ecs::Exception::Base(str, "Entity", file, function, line) {}
+
+Ecs::Exception::World::World(std::string const& str, std::string const& file, std::string const& function, int line) :
+  Ecs::Exception::Base(str, "World", file, function, line) {}

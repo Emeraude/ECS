@@ -31,5 +31,10 @@ namespace Ecs {
     public:
       Entity(std::string const &str, std::string const& file, std::string const& function, int line);
     };
+
+    class World : public Ecs::Exception::Base {
+    public:
+      World(std::string const &str, std::string const& file, std::string const& function, int line);
+    };
   }
 }

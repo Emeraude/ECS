@@ -23,7 +23,7 @@ namespace Ecs {
 	if (_idCount >= Ecs::MAX_COMPONENTS)
 	  __throw(Ecs::Exception::Component, "Too many components");
 	return id;
-      };
+      }
     };
   }
 }
