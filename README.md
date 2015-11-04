@@ -1,11 +1,11 @@
 # ECS Framework
 
-A templated ECS framework written in C++11.
+A portable templated Entity-Component-System framework written in C++11.
 
 ## Getting started
 
 First, you have to create an `Ecs::World` object. It will represent the object that contains all your systems and all your entities.  
-Then, you will have to define your systems. A system must inherits from `Ecs::System::Base` and have a method `void update()`. That is the method which will be called by the `Ecs::World` object.
+Then, you will have to define your systems. A system must inherit from `Ecs::System::Base` and have a method `void update()`. That is the method which will be called by the `Ecs::World` object.
 
 ### System example
 ```cpp
@@ -18,7 +18,7 @@ class CustomSystem : public Ecs::System::Base {
 
 ### Components definition
 
-Defining your components is pretty similar to the definition of systems, except that there is no mandatory member function to define. You should define it as a `struct` and you must make it inherits from `Ecs::Component::Base`.
+Defining your components is pretty similar to the definition of systems, except that there is no mandatory member function to define. You should define it as a `struct` and you must make it inherit from `Ecs::Component::Base`.
 
 ### Component example
 ```cpp
@@ -39,7 +39,7 @@ class CustomSystem : public Ecs::System::Base {
     std::cout << "Update a custom system" << std::endl;
   }
 
-  // Systems can have a constructor that take parameters
+  // Systems can have a constructor that takes parameters
   CustomSystem(std::string const& str) {
     std::cout << std << std::endl;
   }
@@ -71,7 +71,7 @@ int main(void) {
 
 ### Exceptions
 
-Some exceptions may be throwed by the ECS, they are all inherited from Ecs::Exception::Base which inherits from std::exception. So, the following will work:
+Some exceptions may be thrown by the ECS, they are all inherited from Ecs::Exception::Base which inherits from std::exception. So, the following will work:
 ```cpp
 try {
   e.removeComponent<CustomComponent>();
