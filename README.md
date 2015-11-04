@@ -11,7 +11,7 @@ Then, you will have to define your systems. A system must inherit from `Ecs::Sys
 ```cpp
 class CustomSystem : public Ecs::System::Base {
   void update() {
-    std::cout << "Update a custom system" << std::endl;
+    std::cout << "Update a custom system. World has " << w.getEntities().size() << " entities." << std::endl;
   }
 };
 ```
@@ -35,13 +35,13 @@ Here is an example of a full functional commented code:
 ```cpp
 // We define a simple system
 class CustomSystem : public Ecs::System::Base {
-  void update() {
-    std::cout << "Update a custom system" << std::endl;
+  void update(Ecs::World& w) {
+    std::cout << "Update a custom system. World has " << w.getEntities().size() << " entities." << std::endl;
   }
 
   // Systems can have a constructor that takes parameters
   CustomSystem(std::string const& str) {
-    std::cout << std << std::endl;
+    std::cout << str << std::endl;
   }
 };
 

@@ -23,6 +23,7 @@ namespace Ecs {
 
     void run();
     void stop();
+    std::vector<Ecs::Entity>& getEntities(void);
   };
 }
 

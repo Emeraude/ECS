@@ -1,6 +1,8 @@
 #pragma once
 
 namespace Ecs {
+  class World;
+
   namespace System {
     class Base {
     private:
@@ -8,7 +10,7 @@ namespace Ecs {
 
     public:
       virtual ~Base() {}
-      virtual void update() = 0;
+      virtual void update(Ecs::World &world) = 0;
 
       void setMs(float);
       float getMs() const;

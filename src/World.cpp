@@ -15,7 +15,7 @@ void Ecs::World::run() {
     for (auto& it: _systems) {
       if (it.first && it.second < diff) {
 	  it.second += it.first->getMs() / 1000.0;
-	  it.first->update();
+	  it.first->update(*this);
 	}
     }
     std::this_thread::sleep_for(std::chrono::microseconds(100));
@@ -24,4 +24,8 @@ void Ecs::World::run() {
 
 void Ecs::World::stop() {
   _stopped = true;
+}
+
+std::vector<Ecs::Entity>& Ecs::World::getEntities(void) {
+  return _entities;
 }
