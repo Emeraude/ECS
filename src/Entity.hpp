@@ -11,6 +11,8 @@ namespace Ecs {
     std::vector<Ecs::Component::Base*> _components;
 
   public:
+    Entity();
+    Entity(Entity const& o);
     ~Entity();
     template<typename T> T* getComponent();
     template<typename T> bool hasComponent() const;

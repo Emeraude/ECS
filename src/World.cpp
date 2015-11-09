@@ -5,6 +5,8 @@ Ecs::World::World() : _stopped(true) {}
 Ecs::World::~World() {
   for (auto& it: _systems)
     delete it.first;
+  for (auto& it: _entities)
+    delete it;
 }
 
 void Ecs::World::run() {
@@ -26,6 +28,14 @@ void Ecs::World::stop() {
   _stopped = true;
 }
 
-std::vector<Ecs::Entity>& Ecs::World::getEntities(void) {
+std::list<Ecs::Entity *>& Ecs::World::getEntities() {
   return _entities;
+}
+
+void Ecs::World::addEntity(Ecs::Entity const& e) {
+  _entities.push_back(new Ecs::Entity(e));
+}
+
+void Ecs::World::addEntity(Ecs::Entity *e) {
+  _entities.push_back(e);
 }

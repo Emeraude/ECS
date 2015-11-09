@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <list>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -10,7 +11,7 @@
 namespace Ecs {
   class World {
   private:
-    std::vector<Ecs::Entity> _entities;
+    std::list<Ecs::Entity *> _entities;
     std::vector<std::pair<Ecs::System::Base *, double>> _systems;
     bool _stopped;
 
@@ -23,7 +24,9 @@ namespace Ecs {
 
     void run();
     void stop();
-    std::vector<Ecs::Entity>& getEntities(void);
+    void addEntity(Ecs::Entity const& e);
+    void addEntity(Ecs::Entity *e);
+    std::list<Ecs::Entity *>& getEntities();
   };
 }
 
