@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Exceptions.hpp"
-
 namespace Ecs {
   namespace Component {
     class Base {};
