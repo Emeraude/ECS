@@ -42,7 +42,7 @@ void Ecs::World::addEntity(Ecs::Entity *e) {
   }
 }
 
-void Ecs::World::removeEntity(unsigned int i) {
+void Ecs::World::removeEntity(int i) {
   delete _entities[i];
   _entities[i] = NULL;
   _garbage.push(i);

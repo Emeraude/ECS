@@ -23,8 +23,8 @@ namespace Ecs {
     template<typename T> bool hasSystem();
     template<typename T> void removeSystem();
 
-    void removeEntity(unsigned int i);
     template<typename T> void removeEntity(T it);
+    void removeEntity(int i);
 
     void run();
     void update();
