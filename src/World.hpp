@@ -12,46 +12,47 @@ namespace Ecs {
   class World {
   private:
     std::list<Ecs::Entity *> _entities;
-    std::vector<std::pair<Ecs::System::Base *, double>> _systems;
+    std::vector<Ecs::System::Base *> _systems;
     bool _stopped;
+    double _time;
 
   public:
     World();
     ~World();
-    template<typename T, typename ... U> void addSystem(float ms, U && ... args);
+    template<typename T, typename ... U> void addSystem(U && ... args);
     template<typename T> bool hasSystem();
     template<typename T> void removeSystem();
 
     void run();
+    void update();
     void stop();
-    void addEntity(Ecs::Entity const& e);
     void addEntity(Ecs::Entity *e);
     std::list<Ecs::Entity *>& getEntities();
+    std::vector<Ecs::System::Base *>& getSystems();
   };
 }
 
 template<typename T, typename ... U>
-void Ecs::World::addSystem(float ms, U && ... args) {
+void Ecs::World::addSystem(U && ... args) {
   if (hasSystem<T>() == true)
     __throw(Ecs::Exception::World, "System already exists");
 
   unsigned int id = Ecs::System::Template<T>::getId();
-  if (id >= _systems.capacity())
+  if (id >= _systems.size())
     _systems.resize(id + 1);
-  _systems[id] = std::pair<Ecs::System::Base *, double>(new T(std::forward<U>(args) ...), 0.0);
-  _systems[id].first->setMs(ms);
+  _systems[id] = new T(std::forward<U>(args) ...);
 }
 
 template<typename T>
 bool Ecs::World::hasSystem() {
   unsigned int id = Ecs::System::Template<T>::getId();
-  return id < _systems.capacity() && _systems[id].first;
+  return id < _systems.size() && _systems[id];
 }
 
 template<typename T>
 void Ecs::World::removeSystem() {
   if (hasSystem<T>() == false)
     __throw(Ecs::Exception::World, "System not found");
-  delete _systems[Ecs::System::Template<T>::getId()].first;
-  _systems[Ecs::System::Template<T>::getId()].first = 0;
+  delete _systems[Ecs::System::Template<T>::getId()];
+  _systems[Ecs::System::Template<T>::getId()] = 0;
 }

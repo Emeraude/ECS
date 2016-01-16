@@ -5,15 +5,9 @@ namespace Ecs {
 
   namespace System {
     class Base {
-    private:
-      float _ms;
-
     public:
       virtual ~Base() {}
       virtual void update(Ecs::World &world) = 0;
-
-      void setMs(float);
-      float getMs() const;
     };
     extern int _idCount;
 

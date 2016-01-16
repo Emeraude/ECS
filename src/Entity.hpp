@@ -31,7 +31,7 @@ T* Ecs::Entity::getComponent() {
 template<typename T>
 bool Ecs::Entity::hasComponent() const {
   unsigned int id = Ecs::Component::Template<T>::getId();
-  return id < _components.capacity() && _components[id];
+  return id < _components.size() && _components[id];
 }
 
 template<typename T>
@@ -41,14 +41,13 @@ void Ecs::Entity::removeComponent() {
   delete _components[Ecs::Component::Template<T>::getId()];
   _components[Ecs::Component::Template<T>::getId()] = 0;
 }
-
 template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
   if (hasComponent<T>() == true)
     __throw(Ecs::Exception::Entity, "Component already exists");
 
   unsigned int id = Ecs::Component::Template<T>::getId();
-  if (id >= _components.capacity())
+  if (id >= _components.size())
     _components.resize(id + 1);
-  _components[Ecs::Component::Template<T>::getId()] = new T(std::forward<U>(args) ...);
+  _components[id] = new T(std::forward<U>(args) ...);
 }
