@@ -15,7 +15,7 @@ namespace Ecs {
       void setMs(float);
       float getMs() const;
     };
-    static int _idCount = 0;
+    extern int _idCount;
 
     template<typename T>
     class Template : public Base {

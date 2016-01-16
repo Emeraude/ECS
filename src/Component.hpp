@@ -3,7 +3,7 @@
 namespace Ecs {
   namespace Component {
     class Base {};
-    static int _idCount = 0;
+    extern int _idCount;
 
     template<typename T>
     class Template : public Base {
