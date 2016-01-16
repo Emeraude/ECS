@@ -38,7 +38,7 @@ class CustomSystem : public Ecs::System::Base {
   void update(Ecs::World& w) {
     for (std::vector<Ecs::Entity *>::iterator it = w.getEntities().begin(); it != w.getEntities().end().end; ++it)
       w.removeEntity(it); // you must use this function to remove an entity. Otherwise it should be dirty.
-    std::cout << "Update a custom system. << std::endl;
+    std::cout << "Update a custom system." << std::endl;
   }
 
   // Systems can have a constructor that takes parameters
