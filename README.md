@@ -54,15 +54,15 @@ struct CustomComponent : Ecs::Component::Base {
 
 int main(void) {
   Ecs::World w; // defining your world
-  Ecs::Entity e; // defining an empty entity
+  Ecs::Entity *e = new Ecs::Entity(); // defining an empty entity
 
-  w.addSystem<CustomSystem>(1.0, "foobar"); // The first argument is the frequency of the member function update() in ms and the other arguments are directly passed to the constructor of the system
+  w.addSystem<CustomSystem>("foobar"); // The first argument is the frequency of the member function update() in ms and the other arguments are directly passed to the constructor of the system
 
-  e.addComponent<CustomComponent>(1337, "foo"); // the component is simply added to the entity
-  if (e.hasComponent<CustomComponent>()) // checking if the component is contained in the entity
-    e.removeComponent<CustomComponent>(); // we can remove it as simply as we are adding it
-  e.addComponent<CustomComponent>(1337, "foo");
-  std::cout << e.getComponent<CustomComponent>()->foo << std::endl; // getComponent() returns a pointer to the wanted component.
+  e->addComponent<CustomComponent>(1337, "foo"); // the component is simply added to the entity
+  if (e->hasComponent<CustomComponent>()) // checking if the component is contained in the entity
+    e->removeComponent<CustomComponent>(); // we can remove it as simply as we are adding it
+  e->addComponent<CustomComponent>(1337, "foo");
+  std::cout << e->getComponent<CustomComponent>()->foo << std::endl; // getComponent() returns a pointer to the wanted component.
 
   w.addEntity(e); // the entity will be copied and added to the world. So if you modify it, it will be inefficient.
   w.run(); // The world is now calling all your systems until you call the w.stop() method somewhere.
@@ -75,8 +75,8 @@ int main(void) {
 Some exceptions may be thrown by the ECS, they are all inherited from Ecs::Exception::Base which inherits from std::exception. So, the following will work:
 ```cpp
 try {
-  e.removeComponent<CustomComponent>();
-  e.getComponent<CustomComponent>();
+  e->removeComponent<CustomComponent>();
+  e->getComponent<CustomComponent>();
 } catch (std::exception const& e) {
   std::cerr << e.what() << std::endl;
 }
