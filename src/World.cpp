@@ -35,10 +35,6 @@ std::vector<Ecs::Entity *>& Ecs::World::getEntities() {
   return _entities;
 }
 
-std::vector<Ecs::System::Base *>& Ecs::World::getSystems() {
-  return _systems;
-}
-
 void Ecs::World::addEntity(Ecs::Entity *e) {
   if (_garbage.empty())
     _entities.push_back(e);

@@ -31,7 +31,6 @@ namespace Ecs {
     void stop();
     void addEntity(Ecs::Entity *e);
     std::vector<Ecs::Entity *>& getEntities();
-    std::vector<Ecs::System::Base *>& getSystems();
   };
 }
 
