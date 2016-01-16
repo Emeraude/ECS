@@ -3,9 +3,9 @@
 Ecs::World::World() : _stopped(true) {}
 
 Ecs::World::~World() {
-  for (auto& it: _systems)
+  for (auto *it: _systems)
     delete it;
-  for (auto& it: _entities)
+  for (auto *it: _entities)
     delete it;
 }
 
@@ -19,7 +19,7 @@ void Ecs::World::update() {
   static int i = 0;
   std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
-  for (auto& it: _systems)
+  for (auto *it: _systems)
     if (it)
       it->update(*this);
   _time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start).count();
