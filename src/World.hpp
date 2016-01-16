@@ -24,7 +24,7 @@ namespace Ecs {
     template<typename T> void removeSystem();
 
     void removeEntity(unsigned int i);
-    template<typename T> void removeEntity(T& it);
+    template<typename T> void removeEntity(T it);
 
     void run();
     void update();
@@ -60,7 +60,7 @@ void Ecs::World::removeSystem() {
 }
 
 template<typename T>
-void Ecs::World::removeEntity(T& it) {
+void Ecs::World::removeEntity(T it) {
   delete *it;
   *it = NULL;
   _garbage.push(std::distance(_entities.begin(), it));
