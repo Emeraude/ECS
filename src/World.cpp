@@ -16,14 +16,12 @@ void Ecs::World::run() {
 }
 
 void Ecs::World::update() {
-  static int i = 0;
   std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
   for (auto *it: _systems)
     if (it)
       it->update(*this);
   _time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start).count();
-  ++i;
   std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(10000 - _time * 1000)));
 }
 
