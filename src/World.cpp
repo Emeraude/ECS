@@ -31,7 +31,7 @@ void Ecs::World::stop() {
   _stopped = true;
 }
 
-std::list<Ecs::Entity *>& Ecs::World::getEntities() {
+std::vector<Ecs::Entity *>& Ecs::World::getEntities() {
   return _entities;
 }
 
@@ -40,5 +40,16 @@ std::vector<Ecs::System::Base *>& Ecs::World::getSystems() {
 }
 
 void Ecs::World::addEntity(Ecs::Entity *e) {
-  _entities.push_back(e);
+  if (_garbage.empty())
+    _entities.push_back(e);
+  else {
+    _entities[_garbage.front()] = e;
+    _garbage.pop();
+  }
+}
+
+void Ecs::World::removeEntity(unsigned int i) {
+  delete _entities[i];
+  _entities[i] = NULL;
+  _garbage.push(i);
 }

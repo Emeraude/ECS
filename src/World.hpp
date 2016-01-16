@@ -1,7 +1,7 @@
 #pragma once
 
 #include <chrono>
-#include <list>
+#include <queue>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -11,8 +11,9 @@
 namespace Ecs {
   class World {
   private:
-    std::list<Ecs::Entity *> _entities;
+    std::vector<Ecs::Entity *> _entities;
     std::vector<Ecs::System::Base *> _systems;
+    std::queue<int> _garbage;
     bool _stopped;
     double _time;
 
@@ -23,11 +24,14 @@ namespace Ecs {
     template<typename T> bool hasSystem();
     template<typename T> void removeSystem();
 
+    void removeEntity(unsigned int i);
+    template<typename T> void removeEntity(T& it);
+
     void run();
     void update();
     void stop();
     void addEntity(Ecs::Entity *e);
-    std::list<Ecs::Entity *>& getEntities();
+    std::vector<Ecs::Entity *>& getEntities();
     std::vector<Ecs::System::Base *>& getSystems();
   };
 }
@@ -55,4 +59,11 @@ void Ecs::World::removeSystem() {
     __throw(Ecs::Exception::World, "System not found");
   delete _systems[Ecs::System::Template<T>::getId()];
   _systems[Ecs::System::Template<T>::getId()] = 0;
+}
+
+template<typename T>
+void Ecs::World::removeEntity(T& it) {
+  delete *it;
+  *it = NULL;
+  _garbage.push(std::distance(_entities.begin(), it));
 }
