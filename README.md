@@ -36,11 +36,12 @@ Here is an example of a full functional commented code:
 // We define a simple system
 class CustomSystem : public Ecs::System::Base {
   void update(Ecs::World& w) {
-    for (std::vector<Ecs::Entity *>::iterator it = w.getEntities().begin(); it != w.getEntities().end().end; ++it)
+    for (std::vector<Ecs::Entity *>::iterator it = w.getEntities().begin(); it != w.getEntities().end(); ++it)
       w.removeEntity(it); // you must use this function to remove an entity. Otherwise it should be dirty.
     std::cout << "Update a custom system." << std::endl;
   }
 
+public:
   // Systems can have a constructor that takes parameters
   CustomSystem(std::string const& str) {
     std::cout << str << std::endl;
