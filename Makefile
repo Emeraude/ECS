@@ -18,9 +18,11 @@ TARGET = ECS.so
 CXX =	g++
 
 %.o:	%.cpp
-	$(CXX) -o $@ $< $(CXXFLAGS) $(LDXXFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(LDXXFLAGS)
 
-all:	$(OBJS)
+all:	$(TARGET)
+
+$(TARGET): $(OBJS)
 	$(CXX) $(OBJS) -o $(TARGET) $(LDXXFLAGS)
 
 clean:
