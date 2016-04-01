@@ -29,7 +29,7 @@ namespace Ecs {
     void run();
     void update();
     void stop();
-    void addEntity(Ecs::Entity *e);
+    unsigned int addEntity(Ecs::Entity *e);
     std::vector<Ecs::Entity *>& getEntities();
   };
 }
