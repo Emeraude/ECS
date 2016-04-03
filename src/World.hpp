@@ -21,7 +21,7 @@ namespace Ecs {
     ~World();
     template<typename T> T* getSystem();
     template<typename T, typename ... U> void addSystem(U && ... args);
-    template<typename T> bool hasSystem();
+    template<typename T> bool hasSystem() const;
     template<typename T> void removeSystem();
 
     template<typename T> void removeEntity(T it);
@@ -54,7 +54,7 @@ void Ecs::World::addSystem(U && ... args) {
 }
 
 template<typename T>
-bool Ecs::World::hasSystem() {
+bool Ecs::World::hasSystem() const {
   unsigned int id = Ecs::System::Template<T>::getId();
   return id < _systems.size() && _systems[id];
 }
