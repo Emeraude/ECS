@@ -39,6 +39,7 @@ void Ecs::Entity::removeComponent() {
   delete _components[Ecs::Component::Template<T>::getId()];
   _components[Ecs::Component::Template<T>::getId()] = 0;
 }
+
 template<typename T, typename ... U>
 void Ecs::Entity::addComponent(U && ... args) {
   if (hasComponent<T>() == true)
