@@ -36,7 +36,7 @@ std::vector<Ecs::Entity *>& Ecs::World::getEntities() {
 unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
   if (_garbage.empty()) {
     _entities.push_back(e);
-    return _entities.size();
+    return _entities.size() - 1;
   }
   else {
     unsigned int const id = _garbage.front();
