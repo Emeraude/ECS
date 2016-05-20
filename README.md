@@ -67,7 +67,7 @@ int main(void) {
   e->addComponent<CustomComponent>(1337, "foo");
   std::cout << e->getComponent<CustomComponent>()->foo << std::endl; // getComponent() returns a pointer to the wanted component.
 
-  w.addEntity(e); // the entity will be copied and added to the world. So if you modify it, it will be inefficient.
+  w.addEntity(e); // the entity will be added to the world.
   w.run(); // The world is now calling all your systems until you call the w.stop() method somewhere.
   return 0;
 }
