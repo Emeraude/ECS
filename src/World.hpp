@@ -31,6 +31,7 @@ namespace Ecs {
     void update();
     void stop();
     unsigned int addEntity(Ecs::Entity *e);
+    Ecs::Entity *getEntity(unsigned int const id);
     std::vector<Ecs::Entity *>& getEntities();
   };
 }

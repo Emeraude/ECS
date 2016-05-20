@@ -33,6 +33,10 @@ std::vector<Ecs::Entity *>& Ecs::World::getEntities() {
   return _entities;
 }
 
+Ecs::Entity *Ecs::World::getEntity(unsigned int const i) {
+  return _entities.at(i);
+}
+
 unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
   if (_garbage.empty()) {
     _entities.push_back(e);
