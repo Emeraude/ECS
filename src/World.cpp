@@ -44,6 +44,7 @@ unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
   }
   else {
     unsigned int const id = _garbage.front();
+    delete _entities[id];
     _entities[id] = e;
     _garbage.pop();
     return id;
@@ -52,6 +53,6 @@ unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
 
 void Ecs::World::removeEntity(int i) {
   delete _entities[i];
-  _entities[i] = NULL;
+  _entities[i] = new Ecs::Entity;
   _garbage.push(i);
 }
