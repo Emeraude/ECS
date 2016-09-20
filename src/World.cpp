@@ -19,14 +19,21 @@ void Ecs::World::update() {
   std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
   for (auto *it: _systems)
-    if (it)
-      it->update(*this);
+    it->update(*this);
   _time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start).count();
   std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(10000 - _time * 1000)));
 }
 
 void Ecs::World::stop() {
   _stopped = true;
+}
+
+void Ecs::World::lock() {
+  _mutex.lock();
+}
+
+void Ecs::World::unlock() {
+  _mutex.unlock();
 }
 
 std::vector<Ecs::Entity *>& Ecs::World::getEntities() {

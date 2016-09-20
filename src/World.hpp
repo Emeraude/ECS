@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <mutex>
 #include <queue>
 #include <thread>
 #include <vector>
@@ -13,6 +14,7 @@ namespace Ecs {
     std::vector<Ecs::Entity *> _entities;
     std::vector<Ecs::System::Base *> _systems;
     std::queue<int> _garbage;
+    std::mutex _mutex;
     bool _stopped;
     double _time;
 
@@ -30,6 +32,8 @@ namespace Ecs {
     void run();
     void update();
     void stop();
+    void lock();
+    void unlock();
     unsigned int addEntity(Ecs::Entity *e);
     Ecs::Entity *getEntity(unsigned int const id);
     std::vector<Ecs::Entity *>& getEntities();
