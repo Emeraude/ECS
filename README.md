@@ -59,7 +59,7 @@ int main(void) {
   Ecs::World w; // defining your world
   Ecs::Entity *e = new Ecs::Entity(); // defining an empty entity
 
-  w.addSystem<CustomSystem>("foobar"); // The arguments are forwarded to the constructor of the system
+  w.add<CustomSystem>("foobar"); // The arguments are forwarded to the constructor of the system
 
   e->add<CustomComponent>(1337, "foo"); // the component is simply added to the entity
   if (e->has<CustomComponent>()) // checking if the component is contained in the entity

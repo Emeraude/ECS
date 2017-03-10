@@ -22,10 +22,10 @@ namespace Ecs {
   public:
     World();
     ~World();
-    template<typename T> T* getSystem();
-    template<typename T, typename ... U> void addSystem(U && ... args);
-    template<typename T> bool hasSystem() const;
-    template<typename T> void removeSystem();
+    template<typename T> T* get();
+    template<typename T, typename ... U> void add(U && ... args);
+    template<typename T> bool has() const;
+    template<typename T> void remove();
 
     template<typename T> void removeEntity(T it);
     void removeEntity(int i);
@@ -45,15 +45,15 @@ namespace Ecs {
 }
 
 template<typename T>
-T* Ecs::World::getSystem() {
-  if (hasSystem<T>() == false)
+T* Ecs::World::get() {
+  if (has<T>() == false)
     __throw(Ecs::Exception::World, "System not found");
   return static_cast<T *>(_systems[Ecs::System::Template<T>::getId()]);
 }
 
 template<typename T, typename ... U>
-void Ecs::World::addSystem(U && ... args) {
-  if (hasSystem<T>() == true)
+void Ecs::World::add(U && ... args) {
+  if (has<T>() == true)
     __throw(Ecs::Exception::World, "System already exists");
 
   unsigned int id = Ecs::System::Template<T>::getId();
@@ -63,14 +63,14 @@ void Ecs::World::addSystem(U && ... args) {
 }
 
 template<typename T>
-bool Ecs::World::hasSystem() const {
+bool Ecs::World::has() const {
   unsigned int id = Ecs::System::Template<T>::getId();
   return id < _systems.size() && _systems[id];
 }
 
 template<typename T>
-void Ecs::World::removeSystem() {
-  if (hasSystem<T>() == false)
+void Ecs::World::remove() {
+  if (has<T>() == false)
     __throw(Ecs::Exception::World, "System not found");
   delete _systems[Ecs::System::Template<T>::getId()];
   _systems[Ecs::System::Template<T>::getId()] = 0;
