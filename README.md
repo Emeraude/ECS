@@ -61,11 +61,11 @@ int main(void) {
 
   w.addSystem<CustomSystem>("foobar"); // The arguments are forwarded to the constructor of the system
 
-  e->addComponent<CustomComponent>(1337, "foo"); // the component is simply added to the entity
-  if (e->hasComponent<CustomComponent>()) // checking if the component is contained in the entity
-    e->removeComponent<CustomComponent>(); // we can remove it as simply as we are adding it
-  e->addComponent<CustomComponent>(1337, "foo");
-  std::cout << e->getComponent<CustomComponent>()->foo << std::endl; // getComponent() returns a pointer to the wanted component.
+  e->add<CustomComponent>(1337, "foo"); // the component is simply added to the entity
+  if (e->has<CustomComponent>()) // checking if the component is contained in the entity
+    e->remove<CustomComponent>(); // we can remove it as simply as we are adding it
+  e->add<CustomComponent>(1337, "foo");
+  std::cout << e->get<CustomComponent>()->foo << std::endl; // get() returns a pointer to the wanted component.
 
   w.addEntity(e); // the entity will be added to the world.
 
@@ -80,8 +80,8 @@ int main(void) {
 Some exceptions may be thrown by the ECS, they are all inherited from Ecs::Exception::Base which inherits from std::exception. So, the following will work:
 ```cpp
 try {
-  e->removeComponent<CustomComponent>();
-  e->getComponent<CustomComponent>();
+  e->remove<CustomComponent>();
+  e->get<CustomComponent>();
 } catch (std::exception const& e) {
   std::cerr << e.what() << std::endl;
 }
