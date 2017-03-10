@@ -37,7 +37,7 @@ Here is an example of a full functional commented code:
 class CustomSystem : public Ecs::System::Base {
   void update(Ecs::World& w) {
     for (std::vector<Ecs::Entity *>::iterator it = w.getEntities().begin(); it != w.getEntities().end(); ++it)
-      w.removeEntity(it); // you must use this function to remove an entity. Otherwise it should be dirty.
+      w.remove(it); // you must use this function to remove an entity. Otherwise it should be dirty.
     std::cout << "Update a custom system." << std::endl;
   }
 

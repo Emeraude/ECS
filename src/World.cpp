@@ -40,11 +40,11 @@ std::vector<Ecs::Entity *>& Ecs::World::getEntities() {
   return _entities;
 }
 
-Ecs::Entity *Ecs::World::getEntity(unsigned int const i) {
+Ecs::Entity *Ecs::World::get(unsigned int const i) {
   return _entities.at(i);
 }
 
-unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
+unsigned int Ecs::World::add(Ecs::Entity *e) {
   if (_garbage.empty()) {
     _entities.push_back(e);
     return _entities.size() - 1;
@@ -58,7 +58,13 @@ unsigned int Ecs::World::addEntity(Ecs::Entity *e) {
   }
 }
 
-void Ecs::World::removeEntity(int i) {
+void Ecs::World::remove(std::vector<Ecs::Entity*>::iterator it) {
+  delete *it;
+  *it = NULL;
+  _garbage.push(std::distance(_entities.begin(), it));
+}
+
+void Ecs::World::remove(unsigned int const i) {
   delete _entities[i];
   _entities[i] = new Ecs::Entity;
   _garbage.push(i);

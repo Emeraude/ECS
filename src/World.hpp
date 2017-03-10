@@ -27,16 +27,16 @@ namespace Ecs {
     template<typename T> bool has() const;
     template<typename T> void remove();
 
-    template<typename T> void removeEntity(T it);
-    void removeEntity(int i);
-
     void run();
     void update();
     void stop();
     void lock();
     void unlock();
-    unsigned int addEntity(Ecs::Entity *e);
-    Ecs::Entity *getEntity(unsigned int const id);
+
+    unsigned int add(Ecs::Entity *e);
+    Ecs::Entity *get(unsigned int const id);
+    void remove(std::vector<Ecs::Entity*>::iterator it);
+    void remove(unsigned int const i);
     std::vector<Ecs::Entity *>& getEntities();
 
     void setSleepDuration(std::chrono::nanoseconds const& sleepDuration);
@@ -74,11 +74,4 @@ void Ecs::World::remove() {
     __throw(Ecs::Exception::World, "System not found");
   delete _systems[Ecs::System::Template<T>::getId()];
   _systems[Ecs::System::Template<T>::getId()] = 0;
-}
-
-template<typename T>
-void Ecs::World::removeEntity(T it) {
-  delete *it;
-  *it = NULL;
-  _garbage.push(std::distance(_entities.begin(), it));
 }
