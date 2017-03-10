@@ -16,7 +16,8 @@ namespace Ecs {
     std::queue<int> _garbage;
     std::mutex _mutex;
     bool _stopped;
-    double _time;
+    std::chrono::nanoseconds _time;
+    std::chrono::nanoseconds _sleepDuration;
 
   public:
     World();
@@ -37,6 +38,9 @@ namespace Ecs {
     unsigned int addEntity(Ecs::Entity *e);
     Ecs::Entity *getEntity(unsigned int const id);
     std::vector<Ecs::Entity *>& getEntities();
+
+    void setSleepDuration(std::chrono::nanoseconds const& sleepDuration);
+    std::chrono::nanoseconds getSleepDuration() const;
   };
 }
 

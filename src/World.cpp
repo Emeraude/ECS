@@ -1,6 +1,6 @@
 #include "World.hpp"
 
-Ecs::World::World() : _stopped(true) {}
+Ecs::World::World() : _stopped(true), _sleepDuration(std::chrono::milliseconds(10)) {}
 
 Ecs::World::~World() {
   for (auto *it: _systems)
@@ -20,8 +20,8 @@ void Ecs::World::update() {
 
   for (auto *it: _systems)
     it->update(*this);
-  _time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - start).count();
-  std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(10000 - _time * 1000)));
+  _time = (std::chrono::steady_clock::now() - start);
+  std::this_thread::sleep_for(_sleepDuration - _time * 1000);
 }
 
 void Ecs::World::stop() {
@@ -62,4 +62,12 @@ void Ecs::World::removeEntity(int i) {
   delete _entities[i];
   _entities[i] = new Ecs::Entity;
   _garbage.push(i);
+}
+
+void Ecs::World::setSleepDuration(std::chrono::nanoseconds const& sleepDuration) {
+  _sleepDuration = sleepDuration;
+}
+
+std::chrono::nanoseconds Ecs::World::getSleepDuration() const {
+  return _sleepDuration;
 }
