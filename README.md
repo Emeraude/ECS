@@ -68,7 +68,7 @@ int main(void) {
   e->add<CustomComponent>(1337, "foo");
   std::cout << e->get<CustomComponent>()->foo << std::endl; // get() returns a pointer to the wanted component.
 
-  w.addEntity(e); // the entity will be added to the world.
+  w.add(e); // the entity will be added to the world.
 
   w.setSleepDuration(std::chrono::milliseconds(50)); // A 50 milliseconds sleep will occur between each system update. Default value is 10ms
   w.run(); // The world is now calling all your systems until you call the w.stop() method somewhere.
