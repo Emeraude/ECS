@@ -1,3 +1,3 @@
 #include "System.hpp"
 
-int Ecs::System::_idCount = 0;
+unsigned int Ecs::System::_idCount = 0;

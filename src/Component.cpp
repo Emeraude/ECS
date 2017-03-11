@@ -1,3 +1,3 @@
 #include "Component.hpp"
 
-int Ecs::Component::_idCount = 0;
+unsigned int Ecs::Component::_idCount = 0;
