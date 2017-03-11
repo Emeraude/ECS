@@ -1,6 +1,7 @@
 # ECS Framework
 
-A portable templated Entity-Component-System framework written in C++11.
+A portable templated Entity-Component-System framework written in C++11.  
+This branch is for unstable version 2.0. For the stable version 1.0, see git tag v1.0.
 
 ## Getting started
 
