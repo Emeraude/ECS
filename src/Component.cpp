@@ -1,7 +1,3 @@
 #include "Component.hpp"
 
-namespace Ecs {
-  namespace Component {
-    int _idCount = 0;
-  }
-}
+int Ecs::Component::_idCount = 0;

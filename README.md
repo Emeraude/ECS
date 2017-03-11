@@ -22,7 +22,7 @@ Defining your components is pretty similar to the definition of systems, except 
 
 ### Component example
 ```cpp
-struct CustomComponent : Ecs::Component::Base {
+struct CustomComponent : Ecs::Component {
   int foo;
   std::string bar;
   CustomComponent(int _foo_ = 42, std::string const& _bar_ = "bar") : foo(_foo_), bar(_bar_) {}
@@ -49,7 +49,7 @@ public:
 };
 
 // We define a simple component
-struct CustomComponent : Ecs::Component::Base {
+struct CustomComponent : Ecs::Component {
   int foo;
   std::string bar;
   CustomComponent(int _foo_ = 42, std::string const& _bar_ = "bar") : foo(_foo_), bar(_bar_) {}
