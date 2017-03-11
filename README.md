@@ -9,7 +9,7 @@ Then, you will have to define your systems. A system must inherit from `Ecs::Sys
 
 ### System example
 ```cpp
-class CustomSystem : public Ecs::System::Base {
+class CustomSystem : public Ecs::System {
   void update() {
     std::cout << "Update a custom system. World has " << w.getEntities().size() << " entities." << std::endl;
   }
@@ -34,7 +34,7 @@ struct CustomComponent : Ecs::Component::Base {
 Here is an example of a full functional commented code:
 ```cpp
 // We define a simple system
-class CustomSystem : public Ecs::System::Base {
+class CustomSystem : public Ecs::System {
   void update(Ecs::World& w) {
     for (std::vector<Ecs::Entity *>::iterator it = w.getEntities().begin(); it != w.getEntities().end(); ++it)
       w.remove(it); // you must use this function to remove an entity. Otherwise it should be dirty.

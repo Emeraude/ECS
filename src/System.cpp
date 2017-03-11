@@ -1,7 +1,3 @@
 #include "System.hpp"
 
-namespace Ecs {
-  namespace System {
-    int _idCount = 0;
-  }
-}
+int Ecs::System::_idCount = 0;
