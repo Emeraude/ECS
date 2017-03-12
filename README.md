@@ -6,7 +6,7 @@ This branch is for unstable version 2.0. For the stable version 1.0, see git tag
 ## Getting started
 
 First, you have to create an `Ecs::World` object. It will represent the object that contains all your systems and all your entities.  
-Then, you will have to define your systems. A system must inherit from `Ecs::System::Base` and have a method `void update()`. That is the method which will be called by the `Ecs::World` object.
+Then, you will have to define your systems. A system must inherit from `Ecs::System` and have a method `void update()`. That is the method which will be called by the `Ecs::World` object.
 
 ### System example
 ```cpp
@@ -19,7 +19,7 @@ class CustomSystem : public Ecs::System {
 
 ### Components definition
 
-Defining your components is pretty similar to the definition of systems, except that there is no mandatory member function to define. You should define it as a `struct` and you must make it inherit from `Ecs::Component::Base`.
+Defining your components is pretty similar to the definition of systems, except that there is no mandatory member function to define. You should define it as a `struct` and you must make it inherit from `Ecs::Component`.
 
 ### Component example
 ```cpp
