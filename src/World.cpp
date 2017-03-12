@@ -20,8 +20,8 @@ void Ecs::World::update() {
 
   for (auto *it: _systems)
     it->update(*this);
-  _time = (std::chrono::steady_clock::now() - start);
-  std::this_thread::sleep_for(_sleepDuration - _time * 1000);
+  _time = std::chrono::steady_clock::now() - start;
+  std::this_thread::sleep_for(_sleepDuration - _time);
 }
 
 void Ecs::World::stop() {
